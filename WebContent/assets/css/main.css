@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+
+.container {
+	display: flex;
+}
+
+.list-item {
+	width: 200px;
+	list-style: none;
+	margin-right: 20px;
+}
+
+.htgio-img-title {
+	width: 30px;
+	height: 30px;
+}
