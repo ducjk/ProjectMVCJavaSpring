@@ -52,6 +52,26 @@
 			margin-left: 40px;
 		}
 		
+		.btn-action-1 {
+			font-size: 18px;
+			color: #fff;
+			border: 1px solid #111;
+			border-radius: 6px;
+			padding: 8px 12px;
+			background-color: #337AB7;
+			
+		}
+		
+		.btn-action-1:hover {
+			text-decoration: none;
+			cursor: pointer;
+		}
+		
+		.input-quantity {
+			width: 42px;
+			
+		}
+		
 		
   	</style>
 </head>
@@ -128,7 +148,11 @@
 			   					<%=item.getTenSach() %>
 			   				</td>
 			   				<td>
-			   					<%=item.getSoLuong() %>
+			   					<form method="post" action="giohang.jsp?ms=<%=item.getMaSach()%>&tensach=<%=item.getTenSach()%>&gia=<%=item.getGiaSach()%>&anh=<%=item.getAnh()%>&addbook=true&">
+			   						<input type="number" name="quantity" value="<%=item.getSoLuong()%>" class="input-quantity"/>
+			   						
+			   						<input type="submit" name="submit" value="Cập nhật"/>
+			   					</form>
 			   				</td>
 			   				<td>
 			   					<%=item.getGiaSach() %>
@@ -152,9 +176,9 @@
 			
 	</div>
 	<div class="btn-action">
-		<button class="btn-action-1" onclick="">Trả lại toàn bộ</button>
-		<button class="btn-action-1">Tiếp tục mua hàng</button>
-		<button class="btn-action-1">Thanh toán</button>
+		<a class="btn-action-1" href="giohang.jsp?removeall=true">Trả lại toàn bộ</a>
+		<a class="btn-action-1" href="htsach.jsp">Tiếp tục mua hàng</a>
+		<a class="btn-action-1">Thanh toán</a>
 	</div>
 	
 

@@ -23,13 +23,19 @@
 			String maSach = request.getParameter("ms");
 			gh.Xoa(maSach);
 		}
-		else {
+		else if (request.getParameter("addbook") != null){
 			String maSach = request.getParameter("ms");
-			String tenSach = request.getParameter("tensach");
 			long soLuong = (long)1;
+			if (request.getParameter("quantity") != null)
+				soLuong = Long.parseLong(request.getParameter("quantity"));
+			String tenSach = request.getParameter("tensach");
 			long giaSach = Long.parseLong(request.getParameter("gia"));
 			String anh = request.getParameter("anh");
 			gh.Them(maSach, tenSach, giaSach, soLuong, anh);
+		}
+		
+		else if (request.getParameter("removeall") != null){
+			gh.XoaAll();
 		}
 		//b3: luu gh vao session
 		

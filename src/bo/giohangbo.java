@@ -9,7 +9,7 @@ public class giohangbo {
 	public void Them(String maSach, String tenSach, long giaSach, long soLuong, String anh) {
 		for (giohangbean g:ds) {
 			if (g.getMaSach().equals(maSach)) {
-				g.setSoLuong(soLuong + g.getSoLuong());
+				g.setSoLuong(soLuong);
 				return;
 			}
 		}
@@ -25,6 +25,10 @@ public class giohangbo {
 				return;
 			}
 		}
+	}
+	
+	public void XoaAll() {
+		ds.removeAll(ds);
 	}
 	
 	public long TongTien() {

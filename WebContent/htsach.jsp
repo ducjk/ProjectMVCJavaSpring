@@ -24,7 +24,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
     		<div class="navbar-header">
-      			<a class="navbar-brand" href="#">Trang Chủ</a>
+      			<a class="navbar-brand" href="htsach.jsp">Trang Chủ</a>
     		</div>
 		    <ul class="nav navbar-nav">
 			      <li class="active"><a href="#">Giỏ Hàng</a></li>
@@ -104,7 +104,7 @@
 					   		     <%=s.getTacGia() %><br>
 					   		     <%=s.getGia() %><br>
 					   		     
-					   		     <a href="giohang.jsp?ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
+					   		     <a href="giohang.jsp?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
 					   		     	<img src="mua.jpg"/>
 					   		     </a>
 					   		  </td>
@@ -117,7 +117,7 @@
 							   		    <%=s.getTenSach()%> <br>
 							   	     	<%=s.getTacGia() %><br>
 							   		    <%=s.getGia() %><br>
-							   		    <a href="giohang.jsp?ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
+							   		    <a href="giohang.jsp?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
 					   		     			<img src="mua.jpg"/>
 					   		     		</a>
 						   		     </td>
