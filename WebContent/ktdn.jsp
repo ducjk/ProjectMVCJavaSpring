@@ -11,10 +11,10 @@
 		String un = request.getParameter("txtun");
 		String pass = request.getParameter("txtpass");
 		//if (un.equals("abc") && pass.equals("123")){
-			if (session.getAttribute("login") == null)
-				session.setAttribute("login", "");
-			session.setAttribute("login", un);
-			response.sendRedirect("htsach.jsp");
+			//if (session.getAttribute("login") == null)
+				//session.setAttribute("login", "");
+			//session.setAttribute("login", un);
+			//response.sendRedirect("htsach.jsp");
 		//}
 	%>
 </body>

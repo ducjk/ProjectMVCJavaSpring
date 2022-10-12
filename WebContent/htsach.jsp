@@ -1,3 +1,4 @@
+<%@page import="bo.giohangbo"%>
 <%@page import="bo.loaibo"%>
 <%@page import="bo.sachbo"%>
 <%@page import="bean.sachbean"%>
@@ -21,13 +22,27 @@
 
 </head>
 <body>
+	<% giohangbo gh = (giohangbo) session.getAttribute("gio"); %>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
     		<div class="navbar-header">
       			<a class="navbar-brand" href="htsach.jsp">Trang Chủ</a>
     		</div>
 		    <ul class="nav navbar-nav">
-			      <li class="active"><a href="#">Giỏ Hàng</a></li>
+			      <li class="<% if (gh != null && gh.countBook() != 0) out.print("active"); %>"><a href="htgio.jsp">
+			      <% if (gh != null){
+			    	  if (gh.countBook() == 0)
+				    		out.print("Giỏ Hàng");
+				    	else{
+				    		out.print("Giỏ Hàng (" + gh.countBook() + ")");
+				    	} 
+			      }
+			      else{
+			    	  out.print("Giỏ Hàng");
+			      }
+			      
+			      %>
+			      </a></li>
 			      <li><a href="#">Thanh Toán</a></li>
 			      <li><a href="#">Lịch sử mua hàng</a></li>
 			      <li><a href="#"><%=session.getAttribute("Sum")%></a></li>
@@ -41,7 +56,7 @@
 			      <li><a href="removesession.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 			      <li>
 			      <% if (session.getAttribute("login") == null){ %>
-			    	 <a href="dangnhap.jsp"><span class="glyphicon glyphicon-user"></span>Log In</a>
+			    	 <a href="ktdn"><span class="glyphicon glyphicon-user"></span>Log In</a>
 			      <%}else{ %>
 			    	 <a href="#"><span class="glyphicon glyphicon-user">
 			    	 	<%=session.getAttribute("login") %>

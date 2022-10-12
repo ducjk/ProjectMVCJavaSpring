@@ -76,13 +76,18 @@
   	</style>
 </head>
 <body>
+	<% giohangbo gh = (giohangbo) session.getAttribute("gio"); %>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
     		<div class="navbar-header">
       			<a class="navbar-brand" href="htsach.jsp">Trang Chủ</a>
     		</div>
 		    <ul class="nav navbar-nav">
-			      <li class="active"><a href="htgio.jsp">Giỏ Hàng</a></li>
+			      <li class="active">
+			      	<a href="htgio.jsp">Giỏ Hàng(
+			      	<%=gh.countBook() %>
+			      	)
+			      	</a></li>
 			      <li><a href="#">Thanh Toán</a></li>
 			      <li><a href="#">Lịch sử mua hàng</a></li>
 			      <li><a href="#"><%=session.getAttribute("Sum")%></a></li>
@@ -135,12 +140,18 @@
 		    		<td>Giá</td>
 		    		<td>Thành tiền</td>
 		    	</tr>
-		   		<%	giohangbo gh = (giohangbo) session.getAttribute("gio");
+		   		<%	
 		   			long tongTien = 0;
+		   			if (gh.ds.size() == 0){
+						response.sendRedirect("htsach.jsp");
+					}
 		   			for (giohangbean item: gh.ds){ 
 		   				tongTien += item.getThanhtien();	
 		   			%>
 		   				<tr class="row-item">
+		   					<td>
+			   					<input type="checkbox" name="delete" form="form-1" value="<%=item.getMaSach()%>"/>
+			   				</td>
 		   					<td>
 		   						<img src="<%=item.getAnh()%>" class="htgio-img-title"/> 
 			   				</td>
@@ -149,7 +160,7 @@
 			   				</td>
 			   				<td>
 			   					<form method="post" action="giohang.jsp?ms=<%=item.getMaSach()%>&tensach=<%=item.getTenSach()%>&gia=<%=item.getGiaSach()%>&anh=<%=item.getAnh()%>&addbook=true&">
-			   						<input type="number" name="quantity" value="<%=item.getSoLuong()%>" class="input-quantity"/>
+			   						<input type="number" name="quantity" min="1" value="<%=item.getSoLuong()%>" class="input-quantity"/>
 			   						
 			   						<input type="submit" name="submit" value="Cập nhật"/>
 			   					</form>
@@ -163,12 +174,18 @@
 			   				<td>
 			   					<a class="test" href="giohang.jsp?ms=<%=item.getMaSach() %>&remove=1">&times</a>
 			   				</td>
+			   				
+			   				
 		   				</tr>
 		   			<%}%>
 		   			<tr>
 		   				<td style="font-size: 24px; font-weight: bold;" colspan="2">Tổng tiền: </td>
-		
 		   				<td style="font-size: 24px; font-weight: bold"><%=tongTien %></td>
+		   				<td>
+		   					<form id="form-1" method="post" action="giohang.jsp?suanhieu=true&">
+		   						<input type="submit" value="Xóa đã chọn"/>
+		   					</form>
+		   				</td>
 		   			</tr>
 	   		 </table>
 		

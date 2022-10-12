@@ -19,15 +19,17 @@
 		gh = (giohangbo) session.getAttribute("gio");
 		//b2: thao tac tren bien
 		String removeItem = request.getParameter("remove");
-		if (removeItem != null){
+		if (request.getParameter("remove") != null){
 			String maSach = request.getParameter("ms");
 			gh.Xoa(maSach);
+			
 		}
 		else if (request.getParameter("addbook") != null){
 			String maSach = request.getParameter("ms");
 			long soLuong = (long)1;
 			if (request.getParameter("quantity") != null)
 				soLuong = Long.parseLong(request.getParameter("quantity"));
+			
 			String tenSach = request.getParameter("tensach");
 			long giaSach = Long.parseLong(request.getParameter("gia"));
 			String anh = request.getParameter("anh");
@@ -36,6 +38,10 @@
 		
 		else if (request.getParameter("removeall") != null){
 			gh.XoaAll();
+		}
+		else if (request.getParameter("suanhieu") != null && request.getParameter("delete") != null) {
+			
+			gh.XoaNhieu(request.getParameterValues("delete"));
 		}
 		//b3: luu gh vao session
 		
