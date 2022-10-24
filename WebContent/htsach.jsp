@@ -26,10 +26,10 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
     		<div class="navbar-header">
-      			<a class="navbar-brand" href="htsach.jsp">Trang Chủ</a>
+      			<a class="navbar-brand" href="htsach">Trang Chủ</a>
     		</div>
 		    <ul class="nav navbar-nav">
-			      <li class="<% if (gh != null && gh.countBook() != 0) out.print("active"); %>"><a href="htgio.jsp">
+			      <li class="<% if (gh != null && gh.countBook() != 0) out.print("active"); %>"><a href="giohang">
 			      <% if (gh != null){
 			    	  if (gh.countBook() == 0)
 				    		out.print("Giỏ Hàng");
@@ -77,9 +77,10 @@
 				<%
 				request.setCharacterEncoding("utf-8");
 				response.setCharacterEncoding("uft-8");
-				loaibo loai = new loaibo();
-					for(loaibean l: loai.getloai()){%>
-						<li class=""><a class="list-group-item" href="htsach.jsp?ml=<%=l.getMaLoai()%>">
+				//loaibo loai = new loaibo();
+				ArrayList<loaibean> loai = (ArrayList<loaibean>)request.getAttribute("dsloai");
+					for(loaibean l: loai){%>
+						<li class=""><a class="list-group-item" href="htsach?ml=<%=l.getMaLoai()%>">
 						<%=l.getTenLoai()%></a></li>
 					<%
 					}
@@ -88,7 +89,7 @@
 		    
 		    
 		    <table width="600" style="padding: 0 15px">
-		   		<%  sachbo sbo= new sachbo();
+		   		<%-- <%  sachbo sbo= new sachbo();
 		   		    ArrayList<sachbean> dssach = sbo.getsach();
 		   		    
 		   		    if (request.getParameter("search")!=null){
@@ -103,10 +104,11 @@
 		   		    	
 		   		    	if (dssach.isEmpty()) {
 		   		 %>   		
-		   		   		 			<h4>Không có sách loại <%=request.getParameter("ml")%></h4>
+		   		   		 			<h4>Không có sách loại <%=request.getParameter("ml")%></h4> --%>
 		   		 <%   	
-		   		   		 }
-		   		    }
+		   		   		 //}
+		   		    //}
+		   				ArrayList<sachbean> dssach = (ArrayList<sachbean>)request.getAttribute("dssach");
 		   		    
 			   		    int n=dssach.size();
 			   		    for(int i=0;i<n;i++){
@@ -114,12 +116,12 @@
 			   		%>
 			   		     <tr>
 				   		      <td>
-					   		  	 <img style="border-radius: 6px" src="<%=s.getAnh() %>"> <br>
+					   		  	 <img style="border-radius: 6px; width: 240px; height: auto; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
 					   		     <%=s.getTenSach() %> <br>
 					   		     <%=s.getTacGia() %><br>
 					   		     <%=s.getGia() %><br>
 					   		     
-					   		     <a href="giohang.jsp?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
+					   		     <a href="giohang?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
 					   		     	<img src="mua.jpg"/>
 					   		     </a>
 					   		  </td>
@@ -128,11 +130,11 @@
 				   		   	  if(i<n){
 				   		      		s = dssach.get(i);%>
 				   		     		<td>
-							   		    <img style="border-radius: 6px" src="<%=s.getAnh() %>"> <br>
+							   		    <img style="border-radius: 6px; width: 240px; height: auto; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
 							   		    <%=s.getTenSach()%> <br>
 							   	     	<%=s.getTacGia() %><br>
 							   		    <%=s.getGia() %><br>
-							   		    <a href="giohang.jsp?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
+							   		    <a href="giohang?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
 					   		     			<img src="mua.jpg"/>
 					   		     		</a>
 						   		     </td>

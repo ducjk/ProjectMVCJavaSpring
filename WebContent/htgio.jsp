@@ -80,7 +80,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
     		<div class="navbar-header">
-      			<a class="navbar-brand" href="htsach.jsp">Trang Chủ</a>
+      			<a class="navbar-brand" href="htsach">Trang Chủ</a>
     		</div>
 		    <ul class="nav navbar-nav">
 			      <li class="active">
@@ -101,7 +101,7 @@
 			      <li><a href="removesession.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 			      <li>
 			      <% if (session.getAttribute("login") == null){ %>
-			    	 <a href="dangnhap.jsp"><span class="glyphicon glyphicon-user"></span>Log In</a>
+			    	 <a href="ktdn"><span class="glyphicon glyphicon-user"></span>Log In</a>
 			      <%}else{ %>
 			    	 <a href="#"><span class="glyphicon glyphicon-user">
 			    	 	<%=session.getAttribute("login") %>
@@ -122,9 +122,11 @@
 				<%
 				request.setCharacterEncoding("utf-8");
 				response.setCharacterEncoding("uft-8");
-				loaibo loai = new loaibo();
-					for(loaibean l: loai.getloai()){%>
-						<li class=""><a class="list-group-item" href="htsach.jsp?ml=<%=l.getMaLoai()%>">
+				
+				ArrayList<loaibean> loai = (ArrayList<loaibean>)request.getAttribute("dsloai");
+				/* loaibo loai = new loaibo(); */
+					for(loaibean l: loai){%>
+						<li class=""><a class="list-group-item" href="htsach?ml=<%=l.getMaLoai()%>">
 						<%=l.getTenLoai()%></a></li>
 					<%
 					}
@@ -143,10 +145,11 @@
 		   		<%	
 		   			long tongTien = 0;
 		   			if (gh.ds.size() == 0){
-						response.sendRedirect("htsach.jsp");
+						response.sendRedirect("htsach");
 					}
-		   			for (giohangbean item: gh.ds){ 
-		   				tongTien += item.getThanhtien();	
+		   			if (gh.ds.size() != 0)
+		   				for (giohangbean item: gh.ds){ 
+		   					tongTien += item.getThanhtien();	
 		   			%>
 		   				<tr class="row-item">
 		   					<td>
@@ -159,7 +162,7 @@
 			   					<%=item.getTenSach() %>
 			   				</td>
 			   				<td>
-			   					<form method="post" action="giohang.jsp?ms=<%=item.getMaSach()%>&tensach=<%=item.getTenSach()%>&gia=<%=item.getGiaSach()%>&anh=<%=item.getAnh()%>&addbook=true&">
+			   					<form method="post" action="giohang?ms=<%=item.getMaSach()%>&tensach=<%=item.getTenSach()%>&gia=<%=item.getGiaSach()%>&anh=<%=item.getAnh()%>&addbook=true&">
 			   						<input type="number" name="quantity" min="1" value="<%=item.getSoLuong()%>" class="input-quantity"/>
 			   						
 			   						<input type="submit" name="submit" value="Cập nhật"/>
@@ -172,7 +175,7 @@
 			   					<%=item.getThanhtien() %>
 			   				</td>
 			   				<td>
-			   					<a class="test" href="giohang.jsp?ms=<%=item.getMaSach() %>&remove=1">&times</a>
+			   					<a class="test" href="giohang?ms=<%=item.getMaSach() %>&remove=1">&times</a>
 			   				</td>
 			   				
 			   				
@@ -182,7 +185,7 @@
 		   				<td style="font-size: 24px; font-weight: bold;" colspan="2">Tổng tiền: </td>
 		   				<td style="font-size: 24px; font-weight: bold"><%=tongTien %></td>
 		   				<td>
-		   					<form id="form-1" method="post" action="giohang.jsp?suanhieu=true&">
+		   					<form id="form-1" method="post" action="giohang?suanhieu=true&">
 		   						<input type="submit" value="Xóa đã chọn"/>
 		   					</form>
 		   				</td>
@@ -193,8 +196,8 @@
 			
 	</div>
 	<div class="btn-action">
-		<a class="btn-action-1" href="giohang.jsp?removeall=true">Trả lại toàn bộ</a>
-		<a class="btn-action-1" href="htsach.jsp">Tiếp tục mua hàng</a>
+		<a class="btn-action-1" href="giohang?removeall=true">Trả lại toàn bộ</a>
+		<a class="btn-action-1" href="htsach">Tiếp tục mua hàng</a>
 		<a class="btn-action-1">Thanh toán</a>
 	</div>
 	

@@ -11,11 +11,7 @@
 		un= <input name="txtun" type="text" value="" placeholder="nhap un" > <br>
        pass= <input name="txtpass" type="password" value="" placeholder="nhap pass"> <br>
 		<input name="butdn" type="submit" value="Login">
-		<%-- <%
-		if(request.getParameter("kt")!=null){
-			out.print("dang nhap sai");
-		}
-		%> --%>
+		
 	</form>
 </body>
 </html>

@@ -11,13 +11,13 @@
 </head>
 <body>
 	<%	
-		double kq = 0;
+		/* double kq = 0;
 		ArrayList<Double> list;
 		if (request.getAttribute("list") != null)
 			list = (ArrayList<Double>)request.getAttribute("list");
 		for (double item: list){
 			
-		}
+		} */
 	
 	/* String a = "";
 		String b = "";
