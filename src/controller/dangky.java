@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.khachhangbean;
 import bo.khachhangbo;
 
 /**
- * Servlet implementation class ktdn
+ * Servlet implementation class dangky
  */
-@WebServlet("/ktdn")
-public class ktdn extends HttpServlet {
+@WebServlet("/dangky")
+public class dangky extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ktdn() {
+    public dangky() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,40 +32,36 @@ public class ktdn extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String un = request.getParameter("txtun");
-		String pass = request.getParameter("txtpass");
+		HttpSession session = request.getSession();
 		
-		if (un!=null && pass!= null) {
-		
-//			Tao doi tuong seesion
-			HttpSession session = request.getSession();
-			
+		String hoten = request.getParameter("fullname");
+		String email = request.getParameter("email");
+		String taikhoan = request.getParameter("username");
+		String matkhau = request.getParameter("password");
+		if (hoten != null && email != null && taikhoan != null && matkhau != null) {
 			khachhangbo khbo = new khachhangbo();
-			ArrayList<khachhangbean> dskhachhang = khbo.getdskhachhang();
+			int kt = khbo.themkhachhang(hoten, email, taikhoan, matkhau);
 			
-			if (khbo.kiemtradangnhap(un, pass)) {
+			if (kt == 0) {
+				request.setAttribute("Themthatbai", "true");
+				RequestDispatcher rd = request.getRequestDispatcher("dangky.jsp");
+				rd.forward(request, response);
+			}else {
 				if (session.getAttribute("login") == null) {
 					session.setAttribute("login", "");
 				}
 				
 				
-				session.setAttribute("login", un);
+				session.setAttribute("login", taikhoan);
 				
 //				Chuyen tiep ve trang htsach
 				RequestDispatcher rd = request.getRequestDispatcher("htsach");
 				rd.forward(request, response);
-			}else {
-				request.setAttribute("Loi", "Tai khoan hoac mat khau chua dung");
-				RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
-				rd.forward(request, response);
 			}
-			
 		}else {
-//			Chuyen tiep ve trang dangnhap
-			RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("dangky.jsp");
 			rd.forward(request, response);
 		}
-
 	}
 
 	/**

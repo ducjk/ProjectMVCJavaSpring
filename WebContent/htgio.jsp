@@ -29,8 +29,12 @@
 		}
 		
 		.row-item {
-			border: 1px solid #999;
 			height: 50px;
+		}
+		
+		.row-item:hover {
+			background-color: rgba(0, 0, 0, 0.08);
+			cursor: pointer;
 		}
 		
 		.test {
@@ -134,7 +138,8 @@
 		    </ul>
 		    
 		    
-		    <table width="600" style="padding: 0 15px" >
+		    <div>
+		    	<table width="600" style="padding: 0 15px" >
 		    	<tr>
 		    		<td></td>
 		    		<td>Tên Sách</td>
@@ -191,15 +196,17 @@
 		   				</td>
 		   			</tr>
 	   		 </table>
+	   		 <div class="btn-action" style="margin-top: 20px;">
+				<a class="btn-action-1" href="giohang?removeall=true">Trả lại toàn bộ</a>
+				<a class="btn-action-1" href="htsach">Tiếp tục mua hàng</a>
+				<a class="btn-action-1">Thanh toán</a>
+			</div>
+		    </div>
 		
 		</div>
 			
 	</div>
-	<div class="btn-action">
-		<a class="btn-action-1" href="giohang?removeall=true">Trả lại toàn bộ</a>
-		<a class="btn-action-1" href="htsach">Tiếp tục mua hàng</a>
-		<a class="btn-action-1">Thanh toán</a>
-	</div>
+	
 	
 
 </body>

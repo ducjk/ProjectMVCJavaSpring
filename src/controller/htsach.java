@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.loaibean;
 import bean.sachbean;
+import bo.giohangbo;
 import bo.loaibo;
 import bo.sachbo;
 
@@ -35,19 +37,37 @@ public class htsach extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		
 		loaibo lbo = new loaibo();
 		ArrayList<loaibean> dsloai = lbo.getloai();
 		request.setAttribute("dsloai", dsloai);
 		
+		ArrayList<sachbean> dssach;
+		if (session.getAttribute("dssach") == null){
+			dssach = new ArrayList<sachbean>();
+			session.setAttribute("dssach", dssach);
+		}
+		
+		dssach = (ArrayList<sachbean>) session.getAttribute("dssach");
+		
 		sachbo sbo = new sachbo();
-		ArrayList<sachbean> dssach = sbo.getsach();
+		
 		if (request.getParameter("search")!=null){
-		    	dssach = sbo.timKiemTheoTen(dssach, request.getParameter("search"));}
-		 else if (request.getParameter("ml")!=null){
-		    	dssach = sbo.timKiemTheoLoai(dssach, request.getParameter("ml"));
-		    
-		    }
-		request.setAttribute("dssach", dssach);
+			dssach = sbo.getsach();
+		    dssach = sbo.timKiemTheoTen(dssach, request.getParameter("search"));
+		}
+		else if (request.getParameter("ml")!=null){
+			dssach = sbo.getsach();
+		    dssach = sbo.timKiemTheoLoai(dssach, request.getParameter("ml"));
+		}
+		else {
+			dssach = sbo.getsach();
+		}
+		
+		session.setAttribute("dssach", dssach);
+		
+//		request.setAttribute("dssach", dssach);
 		RequestDispatcher rd = request.getRequestDispatcher("htsach.jsp");
 		rd.forward(request, response);
 	}

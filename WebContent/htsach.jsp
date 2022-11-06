@@ -45,7 +45,6 @@
 			      </a></li>
 			      <li><a href="#">Thanh Toán</a></li>
 			      <li><a href="#">Lịch sử mua hàng</a></li>
-			      <li><a href="#"><%=session.getAttribute("Sum")%></a></li>
 		    </ul>
 		    
 		    <form class="navbar-form navbar-left">
@@ -53,7 +52,7 @@
 		 		<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="removesession.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			      <li><a href="dangky"><span class="glyphicon glyphicon-user"></span>Register</a></li>
 			      <li>
 			      <% if (session.getAttribute("login") == null){ %>
 			    	 <a href="ktdn"><span class="glyphicon glyphicon-user"></span>Log In</a>
@@ -87,8 +86,8 @@
 				%>
 		    </ul>
 		    
-		    
-		    <table width="600" style="padding: 0 15px">
+		    <div>
+		    	<table width="600" style="padding: 0 15px">
 		   		<%-- <%  sachbo sbo= new sachbo();
 		   		    ArrayList<sachbean> dssach = sbo.getsach();
 		   		    
@@ -108,15 +107,16 @@
 		   		 <%   	
 		   		   		 //}
 		   		    //}
-		   				ArrayList<sachbean> dssach = (ArrayList<sachbean>)request.getAttribute("dssach");
-		   		    
-			   		    int n=dssach.size();
-			   		    for(int i=0;i<n;i++){
+		   				//ArrayList<sachbean> dssach = (ArrayList<sachbean>)request.getAttribute("dssach");
+		   		    	ArrayList<sachbean> dssach = (ArrayList<sachbean>) session.getAttribute("dssach");
+		   				int pageNumber = 10;
+			   		    int n = dssach.size();
+			   		    for(int i=0;i<pageNumber;i++){
 			   		    	sachbean s = dssach.get(i);
 			   		%>
-			   		     <tr>
+			   		     <tr style="height: 380px;">
 				   		      <td>
-					   		  	 <img style="border-radius: 6px; width: 240px; height: auto; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
+					   		  	 <img style="border-radius: 6px; width: 240px; height: 264px; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
 					   		     <%=s.getTenSach() %> <br>
 					   		     <%=s.getTacGia() %><br>
 					   		     <%=s.getGia() %><br>
@@ -130,7 +130,7 @@
 				   		   	  if(i<n){
 				   		      		s = dssach.get(i);%>
 				   		     		<td>
-							   		    <img style="border-radius: 6px; width: 240px; height: auto; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
+							   		    <img style="border-radius: 6px; width: 240px; height: 264px; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
 							   		    <%=s.getTenSach()%> <br>
 							   	     	<%=s.getTacGia() %><br>
 							   		    <%=s.getGia() %><br>
@@ -143,9 +143,25 @@
 				   		  </tr>
 				   	<%} %>
 				   	
+				   	
 		   		   
 	   		 </table>
-			
+			<% 			
+						int pages = 1;
+						if (n > 0){
+							pages = (int) n/pageNumber;
+					   		if (n % pageNumber != 0)
+					   			pages++;
+						}
+				   	
+				   	%>	
+				   		<form method="post" action="pagination">
+				   			<%for (int trang=1; trang <= pages; trang++){ %>
+				   				<input name="page" type="submit" value="<%=trang %>"/>	
+				   			<%} %>
+				   		</form>
+		    </div>
+		    
 		</div>
 		
 	</div>
