@@ -14,17 +14,23 @@ public class khachhangbo {
 		return ds;
 	}
 	
-	public boolean kiemtradangnhap(String un, String pass) {
+	public khachhangbean kiemtradangnhap(String un, String pass) {
 		ds = khdao.getdskhachhang();
 		for(khachhangbean kh:ds) {
 			if (un.equals(kh.getTendangnhap()) && pass.equals(kh.getMatkhau()))
-				return true;
+				return kh;
 		}
-		return false;
+		return null;
 	}
 	
 	public int themkhachhang(String hoten, String email, String taikhoan, String pass) {
 		try {
+			ds = khdao.getdskhachhang();
+			for(khachhangbean kh:ds) {
+				if (email.equals(kh.getEmail()) && taikhoan.equals(kh.getTendangnhap()))
+					return 0;
+			}
+			
 			int kt = khdao.ThemKhachHang(hoten, email, taikhoan, pass);
 			return kt;
 		} catch (Exception e) {

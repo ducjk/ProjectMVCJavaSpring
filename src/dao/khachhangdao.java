@@ -19,12 +19,14 @@ public class khachhangdao {
 			   PreparedStatement cmd = cs.cn.prepareStatement(sql);
 			   ResultSet rs = cmd.executeQuery();
 			   while(rs.next()) {
+				   int maKhachHang = rs.getInt("makh");
 				   String hoten = rs.getString("hoten");
 				   String diachi = rs.getString("diachi");
 				   String email = rs.getString("email");
+				   String sdt = rs.getString("sodt");
 				   String TenDangNhap = rs.getString("tendn");
 				   String MatKhau = rs.getString("pass");
-				   dskhachhang.add(new khachhangbean(hoten, diachi, email, TenDangNhap, MatKhau));
+				   dskhachhang.add(new khachhangbean(maKhachHang, hoten, diachi, email, sdt, TenDangNhap, MatKhau));
 			   }
 			   
 //			   b3: close rs, cn

@@ -137,64 +137,14 @@
 		    </ul>
 		    
 		    <div>
-		    	<table width="600" style="padding: 0 15px">
-		   		
-		   		 <%   	
-		   		   		 //}
-		   		    //}
-		   				//ArrayList<sachbean> dssach = (ArrayList<sachbean>)request.getAttribute("dssach");
-		   		    	ArrayList<sachbean> dssach = (ArrayList<sachbean>) session.getAttribute("dssach");
-		   				int pageNumber = 10;
-			   		    int n = dssach.size();
-			   		    for(int i=0;i<pageNumber;i++){
-			   		    	sachbean s = dssach.get(i);
-			   		%>
-			   		     <tr style="height: 380px;">
-				   		      <td>
-					   		  	 <img style="border-radius: 6px; width: 240px; height: 264px; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
-					   		     <%=s.getTenSach() %> <br>
-					   		     <%=s.getTacGia() %><br>
-					   		     <%=s.getGia() %><br>
-					   		     
-					   		     <a href="giohang?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
-					   		     	<img src="mua.jpg"/>
-					   		     </a>
-					   		  </td>
-				   		   
-				   		   	  <% i++; 
-				   		   	  if(i<n){
-				   		      		s = dssach.get(i);%>
-				   		     		<td>
-							   		    <img style="border-radius: 6px; width: 240px; height: 264px; object-fit: cover;" src="<%=s.getAnh() %>"> <br>
-							   		    <%=s.getTenSach()%> <br>
-							   	     	<%=s.getTacGia() %><br>
-							   		    <%=s.getGia() %><br>
-							   		    <a href="giohang?addbook=true&ms=<%=s.getMaSach()%>&tensach=<%=s.getTenSach()%>&gia=<%=s.getGia()%>&anh=<%=s.getAnh()%>">
-					   		     			<img src="mua.jpg"/>
-					   		     		</a>
-						   		     </td>
-					   		
-				   		     <%} %>
-				   		  </tr>
-				   	<%} %>
-				   	
-				   	
-		   		   
-	   		 </table>
-			<% 			
-						int pages = 1;
-						if (n > 0){
-							pages = (int) n/pageNumber;
-					   		if (n % pageNumber != 0)
-					   			pages++;
-						}
-				   	
-				   	%>	
-				   		<form method="post" action="pagination">
-				   			<%for (int trang=1; trang <= pages; trang++){ %>
-				   				<input name="page" type="submit" value="<%=trang %>"/>	
-				   			<%} %>
-				   		</form>
+		    	<h3>Lịch sử mua hàng</h3>
+		    	<table width="700px" border="1px solid #000";>
+		    		<% if (request.getAttribute("listlichsu") != null){
+		    			
+		    		}
+		    		%>
+		    	
+		    	</table>
 		    </div>
 		    
 		</div>

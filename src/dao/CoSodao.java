@@ -2,6 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+
+import bean.lichsubean;
 
 public class CoSodao {
 	public Connection cn;
@@ -22,6 +25,12 @@ public class CoSodao {
 		try {
 			CoSodao cs = new CoSodao();
 			cs.KetNoi();
+			lichsudao lsdao = new lichsudao();
+			ArrayList<lichsubean> ls = new ArrayList<lichsubean>();
+			ls = lsdao.getlichsu(25);
+			for (lichsubean item:ls) {
+				System.out.println(item.getTensach());
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

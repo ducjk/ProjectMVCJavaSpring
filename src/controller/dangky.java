@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.khachhangbean;
 import bo.khachhangbo;
 
 /**
@@ -47,13 +48,13 @@ public class dangky extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("dangky.jsp");
 				rd.forward(request, response);
 			}else {
-				if (session.getAttribute("login") == null) {
-					session.setAttribute("login", "");
+				khachhangbean khachhang = khbo.kiemtradangnhap(taikhoan, matkhau);
+				
+				if (session.getAttribute("khachhang") == null) {
+					session.setAttribute("khachhang", null);
 				}
 				
-				
-				session.setAttribute("login", taikhoan);
-				
+				session.setAttribute("khachhang", khachhang);
 //				Chuyen tiep ve trang htsach
 				RequestDispatcher rd = request.getRequestDispatcher("htsach");
 				rd.forward(request, response);

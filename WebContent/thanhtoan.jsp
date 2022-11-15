@@ -1,3 +1,5 @@
+<%@page import="bo.giohangbo"%>
+<%@page import="bean.khachhangbean"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -5,8 +7,8 @@
 <head>
 	<title>AJax</title>
 	<meta charset="utf-8">
-	<title>Insert title here</title>
-	<style>
+<title>Insert title here</title>
+<style>
 		* {
     padding: 0;
     margin: 0;
@@ -113,50 +115,53 @@
   .spacer {
     margin-top: 36px;
   }
-  .link-register {
-  	color: #000;
-  	display: block;
-  	font-size: 14px;
-  	margin-top: 12px;
-  	text-decoration: none;
-  }
   
-  .link-register:hover {
-  	color: #1d4bbf;
+  .total {
+  	font-size: 20px;
+  	color: red;
   }
 	</style>
 </head>
 <body>
-	<% 	
-		String errorMessage = (String) request.getAttribute("Loi");
-		if (errorMessage != null){
-			%>
-			<script type="text/javascript">alert("Tai khoan mat khau khong dung")</script>
-			
-		<% }
+	<% khachhangbean kh = (khachhangbean) session.getAttribute("khachhang");
+		giohangbo gh = (giohangbo) session.getAttribute("gio");
 	%>
+	
 	<div class="main">
-		<form action="ktdn" method="post" class="form" id="form-1">
-		<h3 class="heading">Đăng nhập</h3>
+
+        <form action="thanhtoan" method="post" class="form" id="form-1">
+          <h3 class="heading">Thanh Toán</h3>
       
           <div class="spacer"></div>
       
           <div class="form-group">
-            <label for="txtun" class="form-label">Tài khoản</label>
-            <input id="txtun" name="txtun" type="text" placeholder="VD: duchuynh123" class="form-control">
+            <label for="fullname" class="form-label">Họ và tên</label>
+            <input id="fullname" name="fullname" type="text" placeholder="VD: Duc Huynh" class="form-control" value=<%=kh != null ? kh.getHoten(): "" %>>
             <span class="form-message"></span>
           </div>
       
           <div class="form-group">
-            <label for="txtpass" class="form-label">Mật khẩu</label>
-            <input id="txtpass" name="txtpass" type="password" placeholder="Nhập mật khẩu" class="form-control">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control" value=<%=kh != null ? kh.getEmail() : "" %>>
             <span class="form-message"></span>
           </div>
       
-          <button class="form-submit">Đăng nhập</button>
-          <a href="dangky" class="link-register">Đăng ký tại đây</a>
-	</form>
-	</div>
-	
+      	  <div class="form-group">
+            <label for="address" class="form-label">Địa chỉ</label>
+            <input id="address" name="address" type="text" placeholder="131 Trần Phú, Huế" class="form-control" value=<%=kh != null ? kh.getDiachi() : "" %>>
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="phone" class="form-label">SĐT</label>
+            <input id="phone" name="phone" type="phone" placeholder="Nhập số điện thoai" class="form-control" value=<%=kh != null ? kh.getSdt() : "" %>>
+            <span class="form-message"></span>
+          </div>
+          <span class="total">Tổng tiền: <strong><%=gh.TongTien() %></strong></span>
+      
+          <button class="form-submit">Thanh toán</button>
+        </form>
+      
+      </div>
 </body>
 </html>

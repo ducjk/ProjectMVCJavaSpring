@@ -12,19 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.khachhangbean;
-import bo.khachhangbo;
+import bean.lichsubean;
+import bean.loaibean;
+import bo.lichsubo;
+import bo.loaibo;
 
 /**
- * Servlet implementation class ktdn
+ * Servlet implementation class lichsumuahang
  */
-@WebServlet("/ktdn")
-public class ktdn extends HttpServlet {
+@WebServlet("/lichsumuahang")
+public class lichsumuahang extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ktdn() {
+    public lichsumuahang() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,42 +37,25 @@ public class ktdn extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String un = request.getParameter("txtun");
-		String pass = request.getParameter("txtpass");
-		
-		if (un!=null && pass!= null) {
-		
-//			Tao doi tuong seesion
-			HttpSession session = request.getSession();
-			
-			khachhangbo khbo = new khachhangbo();
-			ArrayList<khachhangbean> dskhachhang = khbo.getdskhachhang();
-			
-			khachhangbean khachhang = khbo.kiemtradangnhap(un, pass);
-			
-			if (khachhang != null) {
-				
-				if (session.getAttribute("khachhang") == null) {
-					session.setAttribute("khachhang", null);
-				}
-				
-				session.setAttribute("khachhang", khachhang);
-				
-//				Chuyen tiep ve trang htsach
-				RequestDispatcher rd = request.getRequestDispatcher("htsach");
-				rd.forward(request, response);
-			}else {
-				request.setAttribute("Loi", "Tai khoan hoac mat khau chua dung");
-				RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
-				rd.forward(request, response);
-			}
-			
+		HttpSession session = request.getSession();
+		khachhangbean kh = (khachhangbean) session.getAttribute("khachhang");
+		loaibo lbo = new loaibo();
+		ArrayList<loaibean> dsloai = lbo.getloai();
+		request.setAttribute("dsloai", dsloai);
+		if (kh == null) {
+			request.setAttribute("khachhangnull", true);
+			RequestDispatcher rd = request.getRequestDispatcher("htsach");
+			rd.forward(request, response);
 		}else {
-//			Chuyen tiep ve trang dangnhap
-			RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
+			lichsubo lsbo = new lichsubo();
+			ArrayList<lichsubean> listls = lsbo.getList(kh.getMaKhachHang());
+			if (listls != null) {
+				request.setAttribute("listlichsu", listls);
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("lichsumuahang.jsp");
 			rd.forward(request, response);
 		}
-
+		
 	}
 
 	/**

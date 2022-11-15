@@ -1,3 +1,4 @@
+<%@page import="bean.khachhangbean"%>
 <%@page import="bean.giohangbean"%>
 <%@page import="bo.giohangbo"%>
 <%@page import="bo.loaibo"%>
@@ -76,6 +77,45 @@
 			
 		}
 		
+		.login-item {
+			position: relative;
+		}
+		
+		.login-item:hover .sub-login{
+			display: block;
+		}
+		
+		.sub-login {
+			position: absolute;
+			z-index: 10;
+			background-color: #fff;
+			width: 200px;
+			top: 40px;
+			left: -20px;
+			box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.09);
+			border-radius: 6px;
+			list-style: none;
+			padding-left: 0;
+			display: none;
+		}
+		.sub-login-item {
+			cursor: pointer;
+		}
+		.sub-login-item:hover {
+			background-color: rgba(0, 0, 0, 0.09);
+		}
+		
+		.link-sub-login-item {
+			color: black;
+			display: block;
+			padding: 12px 20px;
+		}
+		
+		.link-sub-login-item:hover {
+			text-decoration: none;
+			color: #1d4bbf;
+		}
+		
 		
   	</style>
 </head>
@@ -102,20 +142,28 @@
 		 		<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="removesession.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			      <li>
-			      <% if (session.getAttribute("login") == null){ %>
+		    			<%
+			    	 		khachhangbean kh = (khachhangbean) session.getAttribute("khachhang");
+			    	 	%>
+			      <% if (kh == null){ %>
+			      	<li><a href="dangky"><span class="glyphicon glyphicon-user"></span>Register</a></li>
+			      <% }%>
+			      <li class="login-item">
+			      <% if (kh == null){ %>
 			    	 <a href="ktdn"><span class="glyphicon glyphicon-user"></span>Log In</a>
 			      <%}else{ %>
 			    	 <a href="#"><span class="glyphicon glyphicon-user">
-			    	 	<%=session.getAttribute("login") %>
+			    	 	<%=kh.getHoten() %>
 			    	 	</span>
 			    	 </a>
+			    	 <ul class="sub-login">
+					      <li class="sub-login-item"><a class="link-sub-login-item" href="#">Thông tin cá nhân</a></li>
+					      <li class="sub-login-item"><a class="link-sub-login-item" href="removeLogin">Đăng xuất</a></li>
+			     	 </ul>
 			      <%} %>
 			      
 			      
-			      
-			      </a></li>
+			      </li>
 		    </ul>
   		</div>
 	</nav>
@@ -148,13 +196,11 @@
 		    		<td>Thành tiền</td>
 		    	</tr>
 		   		<%	
-		   			long tongTien = 0;
 		   			if (gh.ds.size() == 0){
 						response.sendRedirect("htsach");
 					}
 		   			if (gh.ds.size() != 0)
-		   				for (giohangbean item: gh.ds){ 
-		   					tongTien += item.getThanhtien();	
+		   				for (giohangbean item: gh.ds){ 	
 		   			%>
 		   				<tr class="row-item">
 		   					<td>
@@ -188,7 +234,7 @@
 		   			<%}%>
 		   			<tr>
 		   				<td style="font-size: 24px; font-weight: bold;" colspan="2">Tổng tiền: </td>
-		   				<td style="font-size: 24px; font-weight: bold"><%=tongTien %></td>
+		   				<td style="font-size: 24px; font-weight: bold"><%=gh.TongTien() %></td>
 		   				<td>
 		   					<form id="form-1" method="post" action="giohang?suanhieu=true&">
 		   						<input type="submit" value="Xóa đã chọn"/>
@@ -199,7 +245,7 @@
 	   		 <div class="btn-action" style="margin-top: 20px;">
 				<a class="btn-action-1" href="giohang?removeall=true">Trả lại toàn bộ</a>
 				<a class="btn-action-1" href="htsach">Tiếp tục mua hàng</a>
-				<a class="btn-action-1">Thanh toán</a>
+				<a class="btn-action-1" href="thanhtoan">Thanh toán</a>
 			</div>
 		    </div>
 		

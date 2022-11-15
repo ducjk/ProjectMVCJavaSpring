@@ -1,9 +1,11 @@
 package bean;
 
 public class khachhangbean {
+	int makhachhang;
 	String hoten;
 	String diachi;
 	String email;
+	String sdt;
 	String tendangnhap;
 	String matkhau;
 	
@@ -12,13 +14,27 @@ public class khachhangbean {
 		// TODO Auto-generated constructor stub
 	}
 
-	public khachhangbean(String hoten, String diachi, String email, String tendangnhap, String matkhau) {
+	public khachhangbean(int maKhachHang, String hoten, String diachi, String email, String sdt,String tendangnhap, String matkhau) {
+		super();
+		this.makhachhang = maKhachHang;
+		this.hoten = hoten;
+		this.diachi = diachi;
+		this.email = email;
+		this.sdt = sdt;
+		this.tendangnhap = tendangnhap;
+		this.matkhau = matkhau;
+	}
+	public khachhangbean(String hoten, String diachi, String email, String sdt, String tendangnhap, String matkhau) {
 		super();
 		this.hoten = hoten;
 		this.diachi = diachi;
 		this.email = email;
+		this.sdt = sdt;
 		this.tendangnhap = tendangnhap;
 		this.matkhau = matkhau;
+	}
+	public int getMaKhachHang() {
+		return makhachhang;
 	}
 
 	public String getHoten() {
@@ -43,6 +59,14 @@ public class khachhangbean {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getSdt() {
+		return sdt;
+	}
+	
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
 	}
 
 	public String getTendangnhap() {
